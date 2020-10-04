@@ -9,7 +9,7 @@ for(let ii=0;ii<localStorage.getItem('count');ii++)
         name: "Button " + ii,
         text: ii + ' LaLaLa ' + ii,
     }
-    var lMS = JSON.stringify(MS); //сериализуем его
+    var lMS = JSON.stringify(MS);
     //MM.push(MS)
     localStorage.setItem(ii,lMS);
     //var rMS = JSON.parse(localStorage.getItem(ii))
@@ -24,12 +24,12 @@ MS =
     id: '0',
     name: "Заметка",
     text: "Текст...",
-    date: " 01.01.2001 8:0",
+    date: " (01.01.2001) (8:00)",
 }
 if(count==0 || count==null)
 {
     count = 1;
-    var lMS = JSON.stringify(MS); //сериализуем его
+    var lMS = JSON.stringify(MS);
     localStorage.setItem('0',lMS);
     localStorage.setItem('count', 1);
 }
@@ -44,7 +44,12 @@ for(let ii=0;ii<count;ii++)
 //document.getElementById('h3').value=M[document.getElementById("0").id].name;
 //document.getElementById('p').value=M[document.getElementById("0").id].text;
 //
-
+const url = new URL(document.URL);
+//url.href;
+url.pathname = 'new';
+//url.href;
+console.log(url);
+document.URL=url;
 function localsave()
 {
     const current = document.getElementsByClassName("tablinks");
