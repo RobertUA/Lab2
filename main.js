@@ -24,14 +24,7 @@ MS =
     id: '0',
     name: "Заметка",
     text: "Текст...",
-    date: " (01.01.2001) (8:00)",
-}
-if(count==0 || count==null)
-{
-    count = 1;
-    var lMS = JSON.stringify(MS);
-    localStorage.setItem('0',lMS);
-    localStorage.setItem('count', 1);
+    date: " (01.01.2001) (08:00)",
 }
 
 for(let ii=0;ii<count;ii++)
@@ -40,21 +33,15 @@ for(let ii=0;ii<count;ii++)
     addbutton(M[ii]);
 }
 //DEF
-//document.getElementById("0").className += " active";
-//document.getElementById('h3').value=M[document.getElementById("0").id].name;
-//document.getElementById('p').value=M[document.getElementById("0").id].text;
-//
-const url = new URL(document.URL);
-//url.href;
-url.pathname = 'new';
-//url.href;
-console.log(url);
-document.URL=url;
+if(document.getElementById(location.hash.slice(1))!=null)
+{
+    hashchange();
+}
+else location.hash="null";
 function localsave()
 {
     const current = document.getElementsByClassName("tablinks");
     let i;
-    //console.log(current.length);
     for(i=0;i<current.length;i++) 
     {
         var newM = M[current[i].id];
@@ -71,34 +58,35 @@ function del()
         localStorage.clear();
         current[0].remove();
         localsave();
-        current = document.getElementById("tabs").lastChild;
+        document.getElementById('h3').value="";
+        document.getElementById('p').value="";
+        location.hash="null";
+    }
+}
+function hashchange()
+{
+    if(document.getElementById(location.hash.slice(1))!=null)
+    {
+        var current = document.getElementsByClassName("active");
+        if (current.length === 1) current[0].className = current[0].className.replace(" active", "");
+        current = document.getElementById(location.hash.slice(1));
+        console.log(current)
         current.className += " active";
         document.getElementById('h3').value=M[current.id].name;
         document.getElementById('p').value=M[current.id].text;
     }
 }
+
 function OpenTab(evt)
 {
-    const current = document.getElementsByClassName("active");
-    if (current.length === 1) current[0].className = current[0].className.replace(" active", "");
-    evt.currentTarget.className += " active";
-    document.getElementById('h3').value=M[current[0].id].name;
-    document.getElementById('p').value=M[current[0].id].text;
+    location.hash=evt.currentTarget.id;
 }
-// function oninputh()
-// {
-//     const current = document.getElementsByClassName("active");
-//     current.textContent=document.getElementById('h3').value;
-//     current.name=document.getElementById('h3').value;
-//     console.log(current.textContent);
-// }
 function changeh()
 {
     const current = document.getElementsByClassName("active");
     if(current.length===1)
     {
         M[current[0].id].name=document.getElementById('h3').value;
-        //current[0].textContent=M[current[0].id].name;
         localsave();
     }
 }
@@ -107,8 +95,7 @@ function oninp(evt)
     const current = document.getElementsByClassName("active");
     if(current.length===1)
     {
-        var d = new Date();
-        M[current[0].id].date = " ("+ d.getDate() + "." + d.getMonth() + "." + d.getFullYear() + ") ("+d.getHours()+":"+d.getMinutes()+")";
+        M[current[0].id].date = gettime();
         current[0].textContent=document.getElementById('h3').value + M[current[0].id].date;
     }
 }
@@ -123,15 +110,15 @@ function changep()
 }
 function add()
 {
-    var d = new Date();
     var newM =
     {
         id: ""+count,
         name: "Заметка",
         text: "Текст...",
-        date: " ("+ d.getDate() + "." + d.getMonth() + "." + d.getFullYear() + ") ("+d.getHours()+":"+d.getMinutes()+")",
+        date: gettime(),
     }
     addbutton(newM);
+    location.hash=newM.id;
     M.push(newM);
     count++;
     localsave();
@@ -146,4 +133,21 @@ function addbutton(M)
     btn.id = M.id;
     btn.textContent = M.name+M.date;
     document.getElementById ('tabs').appendChild (btn);
+    const current = document.getElementsByClassName("active");
+}
+
+var gettime = function ()
+{
+    var d = new Date();
+    var result=" (";
+    if(d.getDate()>9) result += d.getDate() + ".";
+    else result+="0"+d.getDate()+".";
+    if(d.getMonth()>9) result += d.getMonth() + ".";
+    else result+="0"+d.getMonth()+".";
+    result += d.getFullYear() + ") (";
+    if(d.getHours()>9) result += d.getHours() + ":";
+    else result+="0"+d.getHours()+":";
+    if(d.getMinutes()>9) result += d.getMinutes() + ")";
+    else result+="0"+d.getMinutes()+")";
+    return result;
 }

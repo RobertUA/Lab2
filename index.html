@@ -5,10 +5,10 @@
   <title>Laba2</title>
   <link rel="stylesheet" type="text/css" href="style.css">
  </head>
- <body>
-    <div>
-       <button onclick='add()'>+</button>
-       <button onclick='del()'>-</button>
+ <body onhashchange="hashchange()">
+    <div class = "UI">
+       <button onclick='add()' style = "color: rgb(0, 156, 13);">ДОБАВИТЬ</button>
+       <button onclick='del()'style = "color: rgb(156, 36, 0);">УДАЛИТЬ</button>
    </div>
     <div class="tab" id='tabs'></div>
     <div id="TABCONTENT" class="tabcontent">

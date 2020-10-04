@@ -6,6 +6,18 @@
     width: 25%;
     height: 500px;
 }
+.UI button 
+{
+    /* display: block; */
+    background-color: inherit;
+    /* color: rgb(156, 36, 0); */
+    padding: 12px 0px;
+    width: 10%;
+    /* border: none; */
+    font-weight: 900;
+    text-align: center;
+    cursor: pointer;
+}
 .tab button 
 {
     display: block;
@@ -18,7 +30,6 @@
     text-align: left;
     font-weight: 900;
     cursor: pointer;
-    transition: 0.3s;
 }
 .tabcontent 
 {
@@ -44,7 +55,6 @@
 {
     background-color: #ddd;
 }
-
 .tab button.active 
 {
     background-color: rgba(236, 255, 65, 0.712);
