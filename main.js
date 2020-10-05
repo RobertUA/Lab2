@@ -35,17 +35,17 @@ for(let ii=0;ii<count;ii++)
 //console.log(location.hash.slice(1));
 var trans = function(text)
 {
-    var res = text.replace(" ", "_");
+    var res = text.replace(' ', '_');
     return res;
 }
 var untrans = function(text)
 {
-    var res = text.replace("_", " ");
+    var res = text.replace('_', ' ');
     return res;
 }
 //console.log(decodeURIComponent(location.hash).slice(1));
 //DEF
-if(document.getElementById(decodeURIComponent(location.hash).slice(1))!=null)
+if(document.getElementsByName(untrans(decodeURIComponent(location.hash).slice(1)))[0]!='null')
 {
     hashchange();
 }
@@ -133,7 +133,7 @@ function add()
         date: gettime(),
     }
     addbutton(newM);
-    location.hash=newM.id;
+    location.hash=trans(newM.name+newM.date);
     M.push(newM);
     count++;
     localsave();
