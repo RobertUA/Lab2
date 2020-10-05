@@ -32,8 +32,20 @@ for(let ii=0;ii<count;ii++)
     M.push(JSON.parse(localStorage.getItem(ii)));
     addbutton(M[ii]);
 }
+//console.log(location.hash.slice(1));
+var trans = function(text)
+{
+    var res = text.replace(" ", "_");
+    return res;
+}
+var untrans = function(text)
+{
+    var res = text.replace("_", " ");
+    return res;
+}
+//console.log(decodeURIComponent(location.hash).slice(1));
 //DEF
-if(document.getElementById(location.hash.slice(1))!=null)
+if(document.getElementById(decodeURIComponent(location.hash).slice(1))!=null)
 {
     hashchange();
 }
@@ -65,21 +77,24 @@ function del()
 }
 function hashchange()
 {
-    if(document.getElementById(location.hash.slice(1))!=null)
+    if(document.getElementsByName(decodeURIComponent(location.hash).slice(1))!=null)
     {
         var current = document.getElementsByClassName("active");
         if (current.length === 1) current[0].className = current[0].className.replace(" active", "");
-        current = document.getElementById(location.hash.slice(1));
-        console.log(current)
-        current.className += " active";
-        document.getElementById('h3').value=M[current.id].name;
-        document.getElementById('p').value=M[current.id].text;
+        current = document.getElementsByName(untrans(decodeURIComponent(location.hash).slice(1)));
+        if(current[0]!=null)
+        {
+            //console.log(current[0]);
+            current[0].className += " active";
+            document.getElementById('h3').value=M[current[0].id].name;
+            document.getElementById('p').value=M[current[0].id].text;
+        }
     }
 }
 
 function OpenTab(evt)
 {
-    location.hash=evt.currentTarget.id;
+    location.hash=trans(evt.currentTarget.name);
 }
 function changeh()
 {
@@ -128,9 +143,10 @@ function addbutton(M)
     var btn = document.createElement ('button');
     btn.setAttribute("class", "tablinks");
     btn.setAttribute('onclick', 'OpenTab(event)')
-    btn.name = M.name;
+    btn.name = M.name+M.date;
     btn.type = 'button';
     btn.id = M.id;
+    //btn.con = M.name+M.date;
     btn.textContent = M.name+M.date;
     document.getElementById ('tabs').appendChild (btn);
     const current = document.getElementsByClassName("active");
