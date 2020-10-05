@@ -45,11 +45,7 @@ var untrans = function(text)
 }
 //console.log(decodeURIComponent(location.hash).slice(1));
 //DEF
-if(document.getElementsByName(untrans(decodeURIComponent(location.hash).slice(1)))[0]!='null')
-{
-    hashchange();
-}
-else location.hash="null";
+hashchange();
 function localsave()
 {
     const current = document.getElementsByClassName("tablinks");
@@ -77,19 +73,17 @@ function del()
 }
 function hashchange()
 {
-    if(document.getElementsByName(decodeURIComponent(location.hash).slice(1))!=null)
+    var current = document.getElementsByClassName("active");
+    if (current.length === 1) current[0].className = current[0].className.replace(" active", "");
+    current = document.getElementsByName(untrans(decodeURIComponent(location.hash).slice(1)));
+    if(current[0]!=null)
     {
-        var current = document.getElementsByClassName("active");
-        if (current.length === 1) current[0].className = current[0].className.replace(" active", "");
-        current = document.getElementsByName(untrans(decodeURIComponent(location.hash).slice(1)));
-        if(current[0]!=null)
-        {
-            //console.log(current[0]);
-            current[0].className += " active";
-            document.getElementById('h3').value=M[current[0].id].name;
-            document.getElementById('p').value=M[current[0].id].text;
-        }
+        //console.log(current[0]);
+        current[0].className += " active";
+        document.getElementById('h3').value=M[current[0].id].name;
+        document.getElementById('p').value=M[current[0].id].text;
     }
+    else location.hash="null";
 }
 
 function OpenTab(evt)
