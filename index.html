@@ -1,13 +1,20 @@
-<html lang="ru">
-  <head>
-    <title>Привки 2.0</title>
-    <script src="script.js"></script>
-  </head>
-  <body>
-    <form>
-      <p><input id="inp" maxlength="10" size="20" value="текст">
-      <input type="button" onclick="OnClick()" value="тик"/></p>
-      <div id="div"></div>
-    </form>
-  </body>
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Laba2</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+ </head>
+ <body onhashchange="hashchange()">
+    <div class = "UI">
+       <button onclick='add()' style = "color: rgb(0, 156, 13);">ДОБАВИТЬ</button>
+       <button onclick='del()'style = "color: rgb(156, 36, 0);">УДАЛИТЬ</button>
+   </div>
+    <div class="tab" id='tabs'></div>
+    <div id="TABCONTENT" class="tabcontent">
+      <h3><textarea id='h3'  style="font-weight: 900; font-size: larger;" onchange="changeh()" oninput="oninp()"></textarea></h3>
+      <p><textarea id="p"style="height: 425px;" onchange="changep()"></textarea><br><br></p>
+    </div>
+ </body>
+ <script src="main.js"></script>
 </html>
